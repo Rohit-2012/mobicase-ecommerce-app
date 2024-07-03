@@ -6,3 +6,12 @@ datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
 }
+
+model Configuration {
+  id String @id @default(cuid())
+  width Int
+  height Int
+  croppedImageUrl String?
+}
+
+// for syncing model to remote database ```npx prisma db push```

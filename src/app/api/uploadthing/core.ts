@@ -1,25 +1,24 @@
-import { createUploadthing, type FileRouter } from "uploadthing/next";
-import { z } from 'zod';
+import { createUploadthing, type FileRouter } from 'uploadthing/next'
+import { z } from 'zod'
 import sharp from 'sharp'
-import { db } from "@/db";
+import { db } from '@/db'
 
-const f = createUploadthing();
-
+const f = createUploadthing()
 
 export const ourFileRouter = {
-  imageUploader: f({ image: { maxFileSize: "4MB" } })
-    .input(z.object({configId: z.string().optional()}))
+  imageUploader: f({ image: { maxFileSize: '4MB' } })
+    .input(z.object({ configId: z.string().optional() }))
     .middleware(async ({ input }) => {
-      return {input}
+      return { input }
     })
     .onUploadComplete(async ({ metadata, file }) => {
       const { configId } = metadata.input
-      
+
       const res = await fetch(file.url)
-      const buffer = await res.arrayBuffer() 
+      const buffer = await res.arrayBuffer()
 
       const imgMetadata = await sharp(buffer).metadata()
-      const {width, height} = imgMetadata
+      const { width, height } = imgMetadata
 
       if (!configId) {
         const configuration = await db.configuration.create({
@@ -27,23 +26,23 @@ export const ourFileRouter = {
             imageUrl: file.url,
             height: height || 500,
             width: width || 500,
-          }
+          },
         })
-        return {configId: configuration.id}
+
+        return { configId: configuration.id }
       } else {
         const updatedConfiguration = await db.configuration.update({
           where: {
-            id: configId
+            id: configId,
           },
           data: {
-            croppedImageUrl: file.url
-          }
+            croppedImageUrl: file.url,
+          },
         })
-        return {configId: updatedConfiguration.id}
+
+        return { configId: updatedConfiguration.id }
       }
-
-      return { configId};
     }),
-} satisfies FileRouter;
+} satisfies FileRouter
 
-export type OurFileRouter = typeof ourFileRouter;
+export type OurFileRouter = typeof ourFileRouter

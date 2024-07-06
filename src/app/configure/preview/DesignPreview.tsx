@@ -123,7 +123,7 @@ const DesignPreview = ({ configuration }: { configuration: Configuration }) => {
                 <div className='flex items-center justify-between py-1 mt-2'>
                   <p className='text-gray-600'>Base price</p>
                   <p className='font-medium text-gray-900'>
-                    {formatPrice(BASE_PRICE)}
+                    {formatPrice(BASE_PRICE / 100)}
                   </p>
                 </div>
 
@@ -131,7 +131,7 @@ const DesignPreview = ({ configuration }: { configuration: Configuration }) => {
                   <div className='flex items-center justify-between py-1 mt-2'>
                     <p className='text-gray-600'>Textured finish</p>
                     <p className='font-medium text-gray-900'>
-                      {formatPrice(PRODUCT_PRICES.finish.textured)}
+                      {formatPrice(PRODUCT_PRICES.finish.textured / 100)}
                     </p>
                   </div>
                 ) : null}
@@ -140,7 +140,7 @@ const DesignPreview = ({ configuration }: { configuration: Configuration }) => {
                   <div className='flex items-center justify-between py-1 mt-2'>
                     <p className='text-gray-600'>Soft polycarbonate material</p>
                     <p className='font-medium text-gray-900'>
-                      {formatPrice(PRODUCT_PRICES.material.polycarbonate)}
+                      {formatPrice(PRODUCT_PRICES.material.polycarbonate / 100)}
                     </p>
                   </div>
                 ) : null}
@@ -150,7 +150,7 @@ const DesignPreview = ({ configuration }: { configuration: Configuration }) => {
                 <div className='flex items-center justify-between py-2'>
                   <p className='font-semibold text-gray-900'>Order total</p>
                   <p className='font-semibold text-gray-900'>
-                    {formatPrice(totalPrice)}
+                    {formatPrice(totalPrice / 100)}
                   </p>
                 </div>
               </div>

@@ -5,14 +5,11 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { Toaster } from "@/components/ui/toaster";
 import Providers from "@/components/Providers";
+import { constructMetadata } from "@/lib/utils";
 
 const recursive = Recursive({ subsets: ["latin"] });
 
-export const metadata: Metadata = {
-  title: "MobiCase",
-  description:
-    "Create your personalized mobile case with our easy-to-use customizer. Upload your favorite image, design your unique case, and purchase it seamlessly. Stand out with a case that truly represents you. Shop now!",
-};
+export const metadata = constructMetadata()
 
 export default function RootLayout({
   children,
